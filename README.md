@@ -4,4 +4,7 @@ Parallelization of accumulative algorithm visual field analysis for the DMS clas
 Made by:
 me and my colleague Achilleas Grammenos: https://github.com/AchilleasGrammenos
 
-https://nbviewer.org/github/andreasZel/Parallelization-of-accumulative-algorithm-visual-field-analysis/blob/ef9a4625ca9d50c81fcacb8bb76c7004ab4dbc92/1312_1326_DSM_parsysproject2021.pdf
+![alt text](https://i.imgur.com/UM8Fzb9.jpeg)
+![alt text](https://i.imgur.com/CBmll3B.jpg)
+![alt text](https://i.imgur.com/HyF0ovO.jpg)
+![alt text](https://i.imgur.com/G6OaOqp.jpg)
