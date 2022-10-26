@@ -1,8 +1,11 @@
+
 /*
-Serial code
-Authors: Achilleas Grammenos 1312
-         Zelios Andreas 1326
+*  Serial code
+*  Authors: Grammenos Achilleas,
+*           Zelios Andreas
 */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -16,6 +19,7 @@ Authors: Achilleas Grammenos 1312
 #include <time.h>
 #include </mnt/nas/bmp/bmpfile.h>
 
+
 #define IMAGE_MAX_X 3142
 #define IMAGE_MAX_Y 2254
 
@@ -24,9 +28,12 @@ Authors: Achilleas Grammenos 1312
 
 #define COORDINATES_MAX 100
 
-//something negative to get out of bounds, in
-//calculations we get abs of value to calculate
-#define HEIGHT_BOUND -200
+#define HEIGHT_BOUND -200 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 typedef struct coordinates
 {
@@ -34,14 +41,22 @@ typedef struct coordinates
     float y;
 } coordinates;
 
-//transform degrees to radians
+
+//Convert degrees to radians
+
 float radian_from_degree(float degree)
 {
 
 	return degree*(M_PI/180.0);
 }
 
-//finds direction factor
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+//Finds direction factor
+
 float lambda_line(float degree)
 {
 
@@ -54,7 +69,9 @@ float lambda_line(float degree)
 	return tan(radian_from_degree(degree));
 }
 
+
 // t / f if points are in the image returns TRUE
+
 bool valid_point_inside_picture(int x ,int y)
 {
 	if( x <= 0 || x >= IMAGE_MAX_X || y <= 0 || y >= IMAGE_MAX_Y )
@@ -64,7 +81,9 @@ bool valid_point_inside_picture(int x ,int y)
 		return TRUE;
 }
 
-//we get data matrix, x ,y and get height, if out of bounds return a large number
+
+//We get data matrix, x ,y and get height, if out of bounds return a large number
+
 float getheight(void *data0 ,int x ,int y)
 {
 	float (*data)[IMAGE_MAX_X] = data0;
@@ -79,7 +98,9 @@ float getheight(void *data0 ,int x ,int y)
 	return height;
 }
 
+
 //Find out the quarter
+
 void compute_direction(float degrees ,int *x_direction ,int *y_direction)
 {
 	//reduction to 0-360 degrees, in case degrees > 360
@@ -113,10 +134,14 @@ void compute_direction(float degrees ,int *x_direction ,int *y_direction)
 	}
 }
 
-//Initial point y0,x0 with degree
-//old x,y values : x_old ,y_old
-//calculate height y/x
-//and ymax ,xmax of heighest point
+
+/*
+*  Initial point y0,x0 with degree 
+*  Old x,y values : x_old ,y_old
+* 
+*  calculate height y/x and ymax ,xmax of heighest point
+*/
+
 float compute_height_at_x_y(void *data0 ,float currentheight ,float degree ,int x0 ,int y0 ,float x ,float y ,float x_old ,float y_old ,int *xmax ,int *ymax)
 {
 	int x_low ,x_high, i;
@@ -228,8 +253,13 @@ float compute_height_at_x_y(void *data0 ,float currentheight ,float degree ,int 
 	return height;
 }
 
-//Height calculation for each point x/x+1/x+2 and corresponding y
-//also draws the Line of sight (LOS) in grayscale 0 - 255
+
+/*
+*  Height calculation for each point x/x+1/x+2 and corresponding y
+*  Drawing the Line of sight (LOS) in grayscale 0 - 255
+* 
+*/
+
 void compute_height_degree(void *data0 ,float degree ,int x0 ,int y0 ,float observer_height ,int *xmax0 ,int *ymax0 ,float *pointheight0,int value,
 							bmpfile_t *bmp)
 {
@@ -342,6 +372,11 @@ void compute_height_degree(void *data0 ,float degree ,int x0 ,int y0 ,float obse
 		}
 	}
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 int main(int argc ,char *argv[])
 {
